@@ -91,8 +91,12 @@ export default function NinaBussjaegerPortfolio() {
   useEffect(() => {
     // Set a random hero image when artworks are loaded
     if (artworks && artworks.length > 0) {
-      const randomIndex = Math.floor(Math.random() * artworks.length);
-      setRandomHeroImage(artworks[randomIndex].image);
+      // Filter artworks that have images
+      const artworksWithImages = artworks.filter(work => work.image);
+      if (artworksWithImages.length > 0) {
+        const randomIndex = Math.floor(Math.random() * artworksWithImages.length);
+        setRandomHeroImage(artworksWithImages[randomIndex].image);
+      }
     }
   }, [artworks]);
 
@@ -717,7 +721,7 @@ export default function NinaBussjaegerPortfolio() {
           <h2 className="font-display text-5xl md:text-7xl font-bold mb-4">About Nina</h2>
           <div className="h-2 w-32 bg-magenta mb-16" />
           
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 md:items-start items-center">
             <div className="aspect-[2/3] relative overflow-hidden">
               <img 
                 src="https://res.cloudinary.com/dsktnxayr/image/upload/v1771445769/nina_4_5_90_avkuzm.jpg"
@@ -727,10 +731,10 @@ export default function NinaBussjaegerPortfolio() {
             </div>
             
             <div className="space-y-6">
-              <p className="font-sans text-lg md:text-xl leading-relaxed">
+              <p className="font-sans text-lg md:text-xl leading-relaxed italic">
                 Nina Bussjäger ist eine zeitgenössische Künstlerin aus Speyer, deren Werk die Spannung zwischen klassischer Maltechnik und modernem konzeptionellem Denken erforscht. Ihre Gemälde untersuchen Gesellschaft, soziale Strukturen und Identitäten mit gestischer Kraft und psychologischer Tiefe.
               </p>
-              <p className="font-sans text-lg md:text-xl leading-relaxed">
+              <p className="font-sans text-lg md:text-xl leading-relaxed italic">
                 Sie malt, um zu durchdringen: Normen zu hinterfragen, verborgene Wahrheiten sichtbar zu machen und den Betrachter mit sich selbst zu konfrontieren. Ihre Arbeiten sind ehrlich, manchmal schmerzhaft, immer authentisch—Kunst, die unbequem sein darf.
               </p>
             </div>
