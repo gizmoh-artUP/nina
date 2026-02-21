@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Menu, X, ArrowRight, Mail, Instagram, ShoppingBag, Calendar, MapPin, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function NinaBussjaegerPortfolio() {
@@ -85,16 +85,16 @@ export default function NinaBussjaegerPortfolio() {
   const pastEvents = events.filter(e => !e.upcoming);
 
   // Artworks - first one is real, others are placeholders
-  const artworks = [
+  const artworks = useMemo(() => [
     { id: 1, title: 'Fragments of Memory 2', year: 2024, price: '1,800 €', sold: false },
     { id: 2, title: 'Fragments of Memory', year: 2024, price: '1,800 €', sold: false },
     { id: 3, title: 'Urban Pulse', year: 2023, price: 'Sold', sold: true },
     { id: 4, title: 'Ethereal Depths', year: 2024, price: '3,200 €', sold: false },
     { id: 5, title: 'Wild Gestures', year: 2023, price: '2,100 €', sold: false },
     { id: 6, title: 'Silent Scream', year: 2024, price: '2,800 €', sold: false },
-  ];
+  ], []);
 
-  const navigateLightbox = React.useCallback((direction) => {
+  const navigateLightbox = useCallback((direction) => {
     if (selectedWork === null) return;
     
     const currentIndex = artworks.findIndex(w => w.id === selectedWork.id);
