@@ -8,9 +8,26 @@ export default function NinaBussjaegerPortfolio() {
   const [selectedWork, setSelectedWork] = useState(null);
   const [showCookieBanner, setShowCookieBanner] = useState(true);
   const [activeLegalPage, setActiveLegalPage] = useState(null);
+  const [activeSection, setActiveSection] = useState('home');
   
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
+      // Track active section based on scroll position
+      const sections = ['home', 'work', 'events', 'about', 'shop', 'contact'];
+      for (let section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom > 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -86,12 +103,52 @@ export default function NinaBussjaegerPortfolio() {
 
   // Artworks - first one is real, others are placeholders
   const artworks = useMemo(() => [
-    { id: 1, title: 'Fragments of Memory 2', year: 2024, price: '1,800 €', sold: false },
-    { id: 2, title: 'Fragments of Memory', year: 2024, price: '1,800 €', sold: false },
-    { id: 3, title: 'Urban Pulse', year: 2023, price: 'Sold', sold: true },
-    { id: 4, title: 'Ethereal Depths', year: 2024, price: '3,200 €', sold: false },
-    { id: 5, title: 'Wild Gestures', year: 2023, price: '2,100 €', sold: false },
-    { id: 6, title: 'Silent Scream', year: 2024, price: '2,800 €', sold: false },
+    { 
+      id: 1, 
+      title: 'Eschbach', 
+      year: 2024, 
+      price: '3,800 €', 
+      sold: false,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581089/nina_art_1_pxbvav.jpg'
+    },
+    { 
+      id: 2, 
+      title: 'Fragments of Memory', 
+      year: 2024, 
+      price: '2,800 €', 
+      sold: false,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_4_vzqhgu.jpg'
+    },
+    { 
+      id: 3, 
+      title: 'Urban Pulse', 
+      year: 2023, 
+      price: 'Sold', 
+      sold: true,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_3_uveqo0.jpg'
+    },
+    { 
+      id: 4, 
+      title: 'Ethereal Depths', 
+      year: 2024, 
+      price: '3,200 €', 
+      sold: false,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_2_px4ajk.jpg'
+    },
+    { 
+      id: 5, 
+      title: 'Wild Gestures', 
+      year: 2023, 
+      price: '2,100 €', 
+      sold: false
+    },
+    { 
+      id: 6, 
+      title: 'Silent Scream', 
+      year: 2024, 
+      price: '2,800 €', 
+      sold: false
+    },
   ], []);
 
   const navigateLightbox = useCallback((direction) => {
@@ -391,21 +448,46 @@ export default function NinaBussjaegerPortfolio() {
       <div className="grain" />
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center bg-cream">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center bg-cream border-b border-navy border-opacity-10">
         <div className="font-display text-2xl md:text-3xl font-bold text-navy tracking-tight">
           Nina Bussjäger
         </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          {['Work', 'Events', 'About', 'Shop', 'Contact'].map((item) => (
+            <button
+              key={item}
+              onClick={() => {
+                setActiveSection(item.toLowerCase());
+                document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className={`font-sans font-semibold transition-all duration-300 relative pb-2 ${
+                activeSection === item.toLowerCase()
+                  ? 'text-magenta'
+                  : 'text-navy hover:text-magenta'
+              }`}
+            >
+              {item}
+              {activeSection === item.toLowerCase() && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-magenta" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="text-navy hover:text-magenta transition-colors duration-300"
+          className="md:hidden text-navy hover:text-magenta transition-colors duration-300"
         >
           {menuOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
       </nav>
 
-      {/* Menu Overlay */}
+      {/* Mobile Menu Overlay */}
       <div
-        className={`menu-overlay fixed inset-0 bg-navy z-40 flex items-center justify-center ${
+        className={`menu-overlay fixed inset-0 bg-navy z-40 flex items-center justify-center md:hidden ${
           menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
@@ -413,9 +495,10 @@ export default function NinaBussjaegerPortfolio() {
           {['Work', 'Events', 'About', 'Shop', 'Contact'].map((item, i) => (
             <div
               key={item}
-              className="menu-item font-display text-5xl md:text-7xl font-bold text-cream cursor-pointer"
+              className="menu-item font-display text-5xl md:text-7xl font-bold text-cream cursor-pointer hover:text-magenta transition-colors"
               onClick={() => {
                 setMenuOpen(false);
+                setActiveSection(item.toLowerCase());
                 document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{ animationDelay: `${i * 0.1}s` }}
