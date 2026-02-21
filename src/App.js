@@ -661,7 +661,20 @@ export default function NinaBussjaegerPortfolio() {
                       {event.description}
                     </p>
                   </div>
-                  <button className="px-4 py-2 bg-saffron text-navy font-sans font-semibold hover:bg-magenta hover:text-cream transition-colors duration-300 text-sm w-full">
+                  <button 
+                    onClick={() => {
+                      const startDate = new Date(event.date).toISOString().split('T')[0].replace(/-/g, '');
+                      const endDate = new Date(event.endDate).toISOString().split('T')[0].replace(/-/g, '');
+                      const title = encodeURIComponent(event.title);
+                      const details = encodeURIComponent(event.description);
+                      const location = encodeURIComponent(event.location);
+                      
+                      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
+                      
+                      window.open(googleCalendarUrl, '_blank');
+                    }}
+                    className="px-4 py-2 bg-saffron text-navy font-sans font-semibold hover:bg-magenta hover:text-cream transition-colors duration-300 text-sm w-full"
+                  >
                     Add to Calendar
                   </button>
                 </div>
