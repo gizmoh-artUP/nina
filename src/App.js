@@ -290,7 +290,7 @@ export default function NinaBussjaegerPortfolio() {
         .accent-block {
           position: absolute;
           z-index: -1;
-          opacity: 0.85;
+          opacity: 1;
         }
         
         .hover-magenta:hover {
@@ -459,9 +459,15 @@ export default function NinaBussjaegerPortfolio() {
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center bg-cream border-b border-navy border-opacity-10">
-        <div className="font-display text-2xl md:text-3xl font-bold text-navy tracking-tight">
-          Nina Bussjäger
-        </div>
+        <button 
+          onClick={() => {
+            setActiveSection('home');
+            document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="font-display text-xl md:text-2xl font-bold text-navy tracking-tight hover:text-magenta transition-colors duration-300 pb-2 border-b-2 border-navy hover:border-magenta"
+        >
+          nina.
+        </button>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
@@ -537,8 +543,12 @@ export default function NinaBussjaegerPortfolio() {
           <h1 className="hero-title font-display font-black text-navy slide-in mb-8" style={{ transform: 'translateY(60px)' }}>
             Bold.<br/>Expressive.<br/>Unapologetic.
           </h1>
-          <p className="text-xl md:text-2xl font-sans font-semibold italic text-cream max-w-2xl mx-auto slide-in px-6 py-4 bg-magenta rounded" 
-             style={{ transform: 'translateY(60px)', animationDelay: '0.2s' }}>
+          <p className="text-xl md:text-2xl font-sans font-light text-navy max-w-2xl mx-auto slide-in" 
+             style={{ 
+               transform: 'translateY(60px)', 
+               animationDelay: '0.2s',
+               textShadow: '0 2px 8px rgba(255, 255, 255, 0.8)'
+             }}>
             Contemporary paintings that challenge perception and celebrate raw emotion
           </p>
           <button
@@ -562,16 +572,16 @@ export default function NinaBussjaegerPortfolio() {
             {artworks.map((work, index) => (
               <div
                 key={work.id}
-                className="artwork-card cursor-pointer"
+                className="artwork-card cursor-pointer group transition-all duration-300 hover:-translate-y-2"
                 onClick={() => setSelectedWork(work)}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="relative overflow-hidden bg-navy aspect-[3/4] mb-4">
+                <div className="relative overflow-hidden bg-navy aspect-[3/4] mb-4 border-2 border-navy group-hover:border-magenta transition-all duration-300">
                   {work.image ? (
                     <img 
                       src={work.image} 
                       alt={work.title}
-                      className="artwork-img w-full h-full object-cover"
+                      className="artwork-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
                     /* Placeholder gradient */
@@ -603,7 +613,7 @@ export default function NinaBussjaegerPortfolio() {
 
       {/* Events Section */}
       <section id="events" className="py-20 px-6 md:px-12 bg-navy text-cream relative overflow-hidden">
-        <div className="accent-block bg-magenta w-[600px] h-[600px] rounded-full blur-3xl -bottom-40 -right-60" />
+        <div className="accent-block bg-magenta w-[600px] h-[600px] rounded-full blur-xl -bottom-40 -right-60" />
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex items-center justify-between mb-4">
@@ -619,7 +629,7 @@ export default function NinaBussjaegerPortfolio() {
               {upcomingEvents.map((event, index) => (
                 <div 
                   key={event.id} 
-                  className="bg-navy bg-opacity-40 backdrop-blur-sm border-2 border-cream border-opacity-30 p-6 hover:border-magenta hover:border-opacity-70 transition-all duration-500 flex flex-col"
+                  className="bg-navy bg-opacity-40 backdrop-blur-sm border-2 border-cream border-opacity-30 p-6 hover:border-magenta hover:border-opacity-100 transition-all duration-300 flex flex-col hover:shadow-lg hover:-translate-y-1"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="flex-1">
@@ -728,7 +738,7 @@ export default function NinaBussjaegerPortfolio() {
 
       {/* About Section */}
       <section id="about" className="py-20 px-6 md:px-12 bg-navy text-cream relative overflow-hidden">
-        <div className="accent-block bg-saffron w-96 h-96 rounded-full blur-3xl -top-20 -right-40" />
+        <div className="accent-block bg-saffron w-96 h-96 rounded-full blur-xl -top-20 -right-40" />
         
         <div className="max-w-5xl mx-auto relative z-10">
           <h2 className="font-display text-5xl md:text-7xl font-bold mb-4">About Nina</h2>
@@ -798,7 +808,7 @@ export default function NinaBussjaegerPortfolio() {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6 md:px-12 bg-navy text-cream relative overflow-hidden">
-        <div className="accent-block bg-magenta w-[500px] h-[500px] rounded-full blur-3xl -bottom-40 -left-40" />
+        <div className="accent-block bg-magenta w-[500px] h-[500px] rounded-full blur-xl -bottom-40 -left-40" />
         
         <div className="max-w-4xl mx-auto relative z-10">
           <h2 className="font-display text-5xl md:text-7xl font-bold mb-16">Get in Touch</h2>
