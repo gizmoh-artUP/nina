@@ -416,7 +416,6 @@ export default function NinaBussjaegerPortfolio() {
               className="menu-item font-display text-5xl md:text-7xl font-bold text-cream cursor-pointer"
               onClick={() => {
                 setMenuOpen(false);
-                setActiveSection(item.toLowerCase());
                 document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{ animationDelay: `${i * 0.1}s` }}
