@@ -458,15 +458,15 @@ export default function NinaBussjaegerPortfolio() {
       <div className="grain" />
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center bg-cream border-b border-navy border-opacity-10">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-3 md:px-12 md:py-4 flex justify-between items-center bg-cream border-b border-navy border-opacity-10">
         <button 
           onClick={() => {
             setActiveSection('home');
             document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="font-display text-xl md:text-2xl font-bold text-navy tracking-tight hover:text-magenta transition-colors duration-300 pb-2 border-b-2 border-navy hover:border-magenta"
+          className="font-display text-xl md:text-2xl font-bold text-navy tracking-tight hover:text-magenta transition-colors duration-300 flex items-baseline gap-2"
         >
-          nina.
+          <span className="border-b-2 border-magenta pb-1">nina</span> bussjäger
         </button>
 
         {/* Desktop Navigation */}
