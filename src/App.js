@@ -3,18 +3,65 @@ import { Menu, X, ArrowRight, Mail, Instagram, ShoppingBag, Calendar, MapPin, Cl
 
 export default function NinaBussjaegerPortfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const [showPastEvents, setShowPastEvents] = useState(false);
   const [selectedWork, setSelectedWork] = useState(null);
   const [showCookieBanner, setShowCookieBanner] = useState(true);
   const [activeLegalPage, setActiveLegalPage] = useState(null);
   const [activeSection, setActiveSection] = useState('home');
   const [randomHeroImage, setRandomHeroImage] = useState(null);
-  
+
+  // Artworks - define early so it can be used in useEffect
+  const artworks = useMemo(() => [
+    { 
+      id: 1, 
+      title: 'Eschbach', 
+      year: 2024, 
+      price: '3,800 €', 
+      sold: false,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581089/nina_art_1_pxbvav.jpg'
+    },
+    { 
+      id: 2, 
+      title: 'Fragments of Memory', 
+      year: 2024, 
+      price: '2,800 €', 
+      sold: false,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_4_vzqhgu.jpg'
+    },
+    { 
+      id: 3, 
+      title: 'Urban Pulse', 
+      year: 2023, 
+      price: 'Sold', 
+      sold: true,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_3_uveqo0.jpg'
+    },
+    { 
+      id: 4, 
+      title: 'Ethereal Depths', 
+      year: 2024, 
+      price: '3,200 €', 
+      sold: false,
+      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_2_px4ajk.jpg'
+    },
+    { 
+      id: 5, 
+      title: 'Wild Gestures', 
+      year: 2023, 
+      price: '2,100 €', 
+      sold: false
+    },
+    { 
+      id: 6, 
+      title: 'Silent Scream', 
+      year: 2024, 
+      price: '2,800 €', 
+      sold: false
+    },
+  ], []);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
       // Track active section based on scroll position
       const sections = ['home', 'work', 'events', 'about', 'shop', 'contact'];
       for (let section of sections) {
@@ -42,7 +89,7 @@ export default function NinaBussjaegerPortfolio() {
   }, []);
 
   useEffect(() => {
-    // Set a random hero image when component mounts
+    // Set a random hero image when artworks are loaded
     if (artworks && artworks.length > 0) {
       const randomIndex = Math.floor(Math.random() * artworks.length);
       setRandomHeroImage(artworks[randomIndex].image);
@@ -109,56 +156,6 @@ export default function NinaBussjaegerPortfolio() {
 
   const upcomingEvents = events.filter(e => e.upcoming);
   const pastEvents = events.filter(e => !e.upcoming);
-
-  // Artworks - first one is real, others are placeholders
-  const artworks = useMemo(() => [
-    { 
-      id: 1, 
-      title: 'Eschbach', 
-      year: 2024, 
-      price: '3,800 €', 
-      sold: false,
-      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581089/nina_art_1_pxbvav.jpg'
-    },
-    { 
-      id: 2, 
-      title: 'Fragments of Memory', 
-      year: 2024, 
-      price: '2,800 €', 
-      sold: false,
-      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_4_vzqhgu.jpg'
-    },
-    { 
-      id: 3, 
-      title: 'Urban Pulse', 
-      year: 2023, 
-      price: 'Sold', 
-      sold: true,
-      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_3_uveqo0.jpg'
-    },
-    { 
-      id: 4, 
-      title: 'Ethereal Depths', 
-      year: 2024, 
-      price: '3,200 €', 
-      sold: false,
-      image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_2_px4ajk.jpg'
-    },
-    { 
-      id: 5, 
-      title: 'Wild Gestures', 
-      year: 2023, 
-      price: '2,100 €', 
-      sold: false
-    },
-    { 
-      id: 6, 
-      title: 'Silent Scream', 
-      year: 2024, 
-      price: '2,800 €', 
-      sold: false
-    },
-  ], []);
 
   const navigateLightbox = useCallback((direction) => {
     if (selectedWork === null) return;
