@@ -9,6 +9,7 @@ export default function NinaBussjaegerPortfolio() {
   const [showCookieBanner, setShowCookieBanner] = useState(true);
   const [activeLegalPage, setActiveLegalPage] = useState(null);
   const [activeSection, setActiveSection] = useState('home');
+  const [randomHeroImage, setRandomHeroImage] = useState(null);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +40,14 @@ export default function NinaBussjaegerPortfolio() {
       setShowCookieBanner(false);
     }
   }, []);
+
+  useEffect(() => {
+    // Set a random hero image when component mounts
+    if (artworks && artworks.length > 0) {
+      const randomIndex = Math.floor(Math.random() * artworks.length);
+      setRandomHeroImage(artworks[randomIndex].image);
+    }
+  }, [artworks]);
 
   const handleCookieConsent = (accepted) => {
     const consentValue = accepted ? 'accepted' : 'rejected';
@@ -510,12 +519,18 @@ export default function NinaBussjaegerPortfolio() {
       </div>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center px-6 md:px-12 pt-32 pb-20 overflow-hidden">
-        {/* Accent Blocks */}
-        <div className="accent-block bg-magenta w-64 h-64 md:w-96 md:h-96 rounded-full blur-3xl top-20 right-10 md:right-40" 
-             style={{ transform: `translateY(${scrollY * 0.3}px)` }} />
-        <div className="accent-block bg-saffron w-80 h-80 md:w-[500px] md:h-[500px] rounded-full blur-3xl bottom-0 left-10 md:left-60" 
-             style={{ transform: `translateY(${scrollY * -0.2}px)` }} />
+      <section 
+        id="home" 
+        className="relative min-h-screen flex items-center justify-center px-6 md:px-12 pt-32 pb-20 overflow-hidden"
+        style={{
+          backgroundImage: randomHeroImage ? `url(${randomHeroImage})` : 'none',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        {/* White Overlay - 70% opacity */}
+        <div className="absolute inset-0 bg-white opacity-30 z-0" />
         
         <div className="relative z-10 text-center max-w-6xl">
           <h1 className="hero-title font-display font-black text-navy slide-in mb-8" style={{ transform: 'translateY(60px)' }}>
@@ -599,57 +614,55 @@ export default function NinaBussjaegerPortfolio() {
           {/* Upcoming Events */}
           <div className="mb-20">
             <h3 className="font-display text-3xl md:text-4xl font-bold mb-8 text-saffron">Upcoming</h3>
-            <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {upcomingEvents.map((event, index) => (
                 <div 
                   key={event.id} 
-                  className="bg-navy bg-opacity-40 backdrop-blur-sm border-2 border-cream border-opacity-30 p-6 md:p-8 hover:border-magenta hover:border-opacity-70 transition-all duration-500"
+                  className="bg-navy bg-opacity-40 backdrop-blur-sm border-2 border-cream border-opacity-30 p-6 hover:border-magenta hover:border-opacity-70 transition-all duration-500 flex flex-col"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                    <div className="flex-1">
-                      <div className="inline-block bg-magenta text-cream px-3 py-1 font-sans text-xs font-semibold mb-3 uppercase tracking-wider">
-                        {event.type}
+                  <div className="flex-1">
+                    <div className="inline-block bg-magenta text-cream px-3 py-1 font-sans text-xs font-semibold mb-3 uppercase tracking-wider">
+                      {event.type}
+                    </div>
+                    <h4 className="font-display text-xl md:text-2xl font-bold mb-3 text-cream">{event.title}</h4>
+                    <div className="space-y-2 font-sans text-cream text-sm">
+                      <div className="flex items-start gap-3">
+                        <MapPin size={18} className="text-saffron flex-shrink-0 mt-1" />
+                        <div className="text-cream">
+                          <div className="font-semibold">{event.location}</div>
+                          <div className="text-xs opacity-70">{event.address}</div>
+                        </div>
                       </div>
-                      <h4 className="font-display text-2xl md:text-3xl font-bold mb-3 text-cream">{event.title}</h4>
-                      <div className="space-y-2 font-sans text-cream">
-                        <div className="flex items-start gap-3">
-                          <MapPin size={20} className="text-saffron flex-shrink-0 mt-1" />
-                          <div className="text-cream">
-                            <div className="font-semibold text-cream">{event.location}</div>
-                            <div className="text-sm text-cream opacity-70">{event.address}</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Calendar size={20} className="text-saffron flex-shrink-0" />
-                          <div className="text-cream">
-                            {new Date(event.date).toLocaleDateString('de-DE', { 
+                      <div className="flex items-center gap-3">
+                        <Calendar size={18} className="text-saffron flex-shrink-0" />
+                        <div className="text-cream text-xs">
+                          {new Date(event.date).toLocaleDateString('de-DE', { 
+                            day: 'numeric', 
+                            month: 'short', 
+                            year: 'numeric' 
+                          })}
+                          {event.endDate !== event.date && (
+                            <> — {new Date(event.endDate).toLocaleDateString('de-DE', { 
                               day: 'numeric', 
-                              month: 'long', 
+                              month: 'short', 
                               year: 'numeric' 
-                            })}
-                            {event.endDate !== event.date && (
-                              <> — {new Date(event.endDate).toLocaleDateString('de-DE', { 
-                                day: 'numeric', 
-                                month: 'long', 
-                                year: 'numeric' 
-                              })}</>
-                            )}
-                          </div>
+                            })}</>
+                          )}
                         </div>
-                        <div className="flex items-center gap-3">
-                          <Clock size={20} className="text-saffron flex-shrink-0" />
-                          <div className="text-cream">{event.time}</div>
-                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Clock size={18} className="text-saffron flex-shrink-0" />
+                        <div className="text-cream text-xs">{event.time}</div>
                       </div>
                     </div>
-                    <button className="px-6 py-3 bg-saffron text-navy font-sans font-semibold hover:bg-magenta hover:text-cream transition-colors duration-300 whitespace-nowrap">
-                      Add to Calendar
-                    </button>
+                    <p className="font-sans text-cream text-sm leading-relaxed mt-4 mb-4">
+                      {event.description}
+                    </p>
                   </div>
-                  <p className="font-sans text-cream leading-relaxed mt-4">
-                    {event.description}
-                  </p>
+                  <button className="px-4 py-2 bg-saffron text-navy font-sans font-semibold hover:bg-magenta hover:text-cream transition-colors duration-300 text-sm w-full">
+                    Add to Calendar
+                  </button>
                 </div>
               ))}
             </div>
@@ -670,24 +683,24 @@ export default function NinaBussjaegerPortfolio() {
               </button>
               
               {showPastEvents && (
-                <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {pastEvents.map((event, index) => (
                     <div 
                       key={event.id} 
-                      className="bg-navy bg-opacity-30 backdrop-blur-sm border border-cream border-opacity-20 p-6 md:p-8"
+                      className="bg-navy bg-opacity-30 backdrop-blur-sm border border-cream border-opacity-20 p-6 hover:border-opacity-40 transition-all duration-300"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <div className="inline-block bg-cream bg-opacity-20 text-cream px-3 py-1 font-sans text-xs font-semibold mb-3 uppercase tracking-wider">
                         {event.type}
                       </div>
-                      <h4 className="font-display text-xl md:text-2xl font-bold mb-2 text-cream">{event.title}</h4>
+                      <h4 className="font-display text-lg md:text-xl font-bold mb-2 text-cream">{event.title}</h4>
                       <div className="font-sans text-cream text-sm mb-3">
                         {event.location} • {new Date(event.date).toLocaleDateString('de-DE', { 
-                          month: 'long', 
+                          month: 'short', 
                           year: 'numeric' 
                         })}
                       </div>
-                      <p className="font-sans text-cream text-sm">
+                      <p className="font-sans text-cream text-xs leading-relaxed">
                         {event.description}
                       </p>
                     </div>
