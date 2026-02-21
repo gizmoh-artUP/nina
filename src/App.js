@@ -537,7 +537,7 @@ export default function NinaBussjaegerPortfolio() {
           <h1 className="hero-title font-display font-black text-navy slide-in mb-8" style={{ transform: 'translateY(60px)' }}>
             Bold.<br/>Expressive.<br/>Unapologetic.
           </h1>
-          <p className="text-xl md:text-2xl font-sans font-light text-navy max-w-2xl mx-auto slide-in" 
+          <p className="text-xl md:text-2xl font-sans font-light text-navy max-w-2xl mx-auto slide-in px-6 py-4 bg-white rounded" 
              style={{ transform: 'translateY(60px)', animationDelay: '0.2s' }}>
             Contemporary paintings that challenge perception and celebrate raw emotion
           </p>
