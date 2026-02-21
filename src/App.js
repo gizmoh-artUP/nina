@@ -717,20 +717,23 @@ export default function NinaBussjaegerPortfolio() {
           <h2 className="font-display text-5xl md:text-7xl font-bold mb-16">About Nina</h2>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="aspect-square bg-magenta relative overflow-hidden">
-              {/* Placeholder portrait */}
-              <div className="w-full h-full bg-gradient-to-br from-magenta via-saffron to-navy opacity-80" />
+            <div className="aspect-square relative overflow-hidden">
+              <img 
+                src="https://res.cloudinary.com/dsktnxayr/image/upload/v1771445769/nina_4_5_90_avkuzm.jpg"
+                alt="Nina Bussjäger Portrait"
+                className="w-full h-full object-cover"
+              />
             </div>
             
             <div className="space-y-6">
               <p className="font-sans text-lg md:text-xl leading-relaxed">
-                Nina Bussjäger is a contemporary artist based in Vienna, Austria. Her work explores the intersection of emotion, color, and gestural abstraction.
+                Nina Bussjäger ist eine zeitgenössische Künstlerin aus Speyer, deren Werk die Spannung zwischen klassischer Maltechnik und modernem konzeptionellem Denken auslotet. Ihre Gemälde sind intensive Untersuchungen von Gesellschaft, sozialen Strukturen und den vielfältigen Identitäten, die wir bewohnen—ein visuelles Hinterfragen der Rollen, die uns prägen und begrenzen.
               </p>
               <p className="font-sans text-lg md:text-xl leading-relaxed">
-                Drawing inspiration from urban landscapes and human experience, she creates bold, expressive paintings that challenge viewers to confront their own emotional landscapes.
+                Mit gestischer Kraft und psychologischer Tiefe schafft Bussjäger Arbeiten, die nicht nur sehen, sondern fühlen lassen. Sie malt nicht, um zu dekorieren, sondern um zu durchdringen: gesellschaftliche Normen zu hinterfragen, verborgene Wahrheiten sichtbar zu machen und dem Betrachter einen Spiegel vorzuhalten. Ihre Farben sind nicht harmonisch—sie sind ehrlich, manchmal schmerzhaft, immer authentisch.
               </p>
               <p className="font-sans text-lg md:text-xl leading-relaxed">
-                Her work has been exhibited internationally and is held in private collections across Europe and North America.
+                Die Werke von Nina Bussjäger wurden vielfach national und international ausgestellt. Es ist Kunst, die unbequem sein darf, die bleiben soll.
               </p>
             </div>
           </div>
@@ -938,7 +941,7 @@ export default function NinaBussjaegerPortfolio() {
           
           <div className="border-t border-navy border-opacity-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="font-sans text-sm opacity-70 text-center md:text-left">
-              © 2024 Nina Bussjäger. Alle Rechte vorbehalten.
+              © 2026 Nina Bussjäger. Alle Rechte vorbehalten.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 font-sans text-sm">
