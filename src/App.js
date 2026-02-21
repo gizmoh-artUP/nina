@@ -3,18 +3,11 @@ import { Menu, X, ArrowRight, Mail, Instagram, ShoppingBag, Calendar, MapPin, Cl
 
 export default function NinaBussjaegerPortfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const [scrollY, setScrollY] = useState(0);
   const [showPastEvents, setShowPastEvents] = useState(false);
   const [selectedWork, setSelectedWork] = useState(null);
   const [showCookieBanner, setShowCookieBanner] = useState(true);
-  const [cookieConsent, setCookieConsent] = useState(null);
   const [activeLegalPage, setActiveLegalPage] = useState(null);
-  const [sheetData, setSheetData] = useState({ artworks: [], events: [], content: {} });
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Google Sheets Configuration
-  const SHEET_ID = '1Z5Z3zWp9CUkkqw30Wr3B-UDV5euO3eLsp_k9lY4PQDg';
   
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -26,105 +19,12 @@ export default function NinaBussjaegerPortfolio() {
     // Check if user has already made a cookie decision
     const consent = localStorage.getItem('cookieConsent');
     if (consent) {
-      setCookieConsent(consent);
       setShowCookieBanner(false);
     }
-    
-    // Load data from Google Sheets
-    loadSheetData();
   }, []);
-
-  const loadSheetData = async () => {
-    try {
-      setIsLoading(true);
-      
-      // Load Artworks
-      const artworksResponse = await fetch(
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Artworks`
-      );
-      const artworksCSV = await artworksResponse.text();
-      const artworksData = parseCSV(artworksCSV);
-      
-      // Load Events
-      const eventsResponse = await fetch(
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Events`
-      );
-      const eventsCSV = await eventsResponse.text();
-      const eventsData = parseCSV(eventsCSV);
-      
-      // Load Content
-      const contentResponse = await fetch(
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Content`
-      );
-      const contentCSV = await contentResponse.text();
-      const contentData = parseContentCSV(contentCSV);
-      
-      setSheetData({
-        artworks: artworksData,
-        events: eventsData,
-        content: contentData
-      });
-      
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error loading sheet data:', error);
-      setIsLoading(false);
-      // Fallback to hardcoded data if sheet loading fails
-    }
-  };
-
-  const parseCSV = (csv) => {
-    const lines = csv.split('\n');
-    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-      if (!lines[i].trim()) continue;
-      
-      const values = lines[i].split(',').map(v => v.replace(/"/g, '').trim());
-      const row = {};
-      
-      headers.forEach((header, index) => {
-        let value = values[index];
-        
-        // Convert TRUE/FALSE to boolean
-        if (value === 'TRUE') value = true;
-        if (value === 'FALSE') value = false;
-        
-        // Convert numbers
-        if (!isNaN(value) && value !== '') {
-          value = Number(value);
-        }
-        
-        row[header] = value;
-      });
-      
-      data.push(row);
-    }
-    
-    return data;
-  };
-
-  const parseContentCSV = (csv) => {
-    const lines = csv.split('\n');
-    const content = {};
-    
-    for (let i = 1; i < lines.length; i++) {
-      if (!lines[i].trim()) continue;
-      
-      const parts = lines[i].split(',');
-      const field = parts[0].replace(/"/g, '').trim();
-      const value = parts.slice(1).join(',').replace(/"/g, '').trim();
-      
-      content[field] = value;
-    }
-    
-    return content;
-  };
 
   const handleCookieConsent = (accepted) => {
     const consentValue = accepted ? 'accepted' : 'rejected';
-    setCookieConsent(consentValue);
     localStorage.setItem('cookieConsent', consentValue);
     setShowCookieBanner(false);
   };
@@ -194,7 +94,7 @@ export default function NinaBussjaegerPortfolio() {
     { id: 6, title: 'Silent Scream', year: 2024, price: '2,800 €', sold: false },
   ];
 
-  const navigateLightbox = (direction) => {
+  const navigateLightbox = React.useCallback((direction) => {
     if (selectedWork === null) return;
     
     const currentIndex = artworks.findIndex(w => w.id === selectedWork.id);
@@ -207,7 +107,7 @@ export default function NinaBussjaegerPortfolio() {
     }
     
     setSelectedWork(artworks[newIndex]);
-  };
+  }, [selectedWork, artworks]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -224,7 +124,7 @@ export default function NinaBussjaegerPortfolio() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedWork, artworks]);
+  }, [selectedWork, navigateLightbox]);
 
   return (
     <div className="bg-cream text-navy font-sans overflow-x-hidden">
@@ -823,7 +723,7 @@ export default function NinaBussjaegerPortfolio() {
           </form>
           
           <div className="mt-16 flex gap-8">
-            <a href="#" className="text-cream hover:text-magenta transition-colors duration-300 flex items-center gap-3 font-sans text-lg">
+            <a href="https://instagram.com/ninabussjaeger" target="_blank" rel="noopener noreferrer" className="text-cream hover:text-magenta transition-colors duration-300 flex items-center gap-3 font-sans text-lg">
               <Instagram size={24} />
               @ninabussjaeger
             </a>
@@ -933,7 +833,7 @@ export default function NinaBussjaegerPortfolio() {
             </div>
             
             <div className="flex gap-6">
-              <a href="#" className="text-navy hover:text-magenta transition-colors duration-300 flex items-center gap-2 font-sans text-sm">
+              <a href="https://instagram.com/ninabussjaeger" target="_blank" rel="noopener noreferrer" className="text-navy hover:text-magenta transition-colors duration-300 flex items-center gap-2 font-sans text-sm">
                 <Instagram size={20} />
                 Instagram
               </a>
