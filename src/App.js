@@ -714,10 +714,11 @@ export default function NinaBussjaegerPortfolio() {
         <div className="accent-block bg-saffron w-96 h-96 rounded-full blur-3xl -top-20 -right-40" />
         
         <div className="max-w-5xl mx-auto relative z-10">
-          <h2 className="font-display text-5xl md:text-7xl font-bold mb-16">About Nina</h2>
+          <h2 className="font-display text-5xl md:text-7xl font-bold mb-4">About Nina</h2>
+          <div className="h-2 w-32 bg-magenta mb-16" />
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="aspect-square relative overflow-hidden">
+            <div className="aspect-[2/3] relative overflow-hidden">
               <img 
                 src="https://res.cloudinary.com/dsktnxayr/image/upload/v1771445769/nina_4_5_90_avkuzm.jpg"
                 alt="Nina Bussjäger Portrait"
@@ -727,13 +728,10 @@ export default function NinaBussjaegerPortfolio() {
             
             <div className="space-y-6">
               <p className="font-sans text-lg md:text-xl leading-relaxed">
-                Nina Bussjäger ist eine zeitgenössische Künstlerin aus Speyer, deren Werk die Spannung zwischen klassischer Maltechnik und modernem konzeptionellem Denken auslotet. Ihre Gemälde sind intensive Untersuchungen von Gesellschaft, sozialen Strukturen und den vielfältigen Identitäten, die wir bewohnen—ein visuelles Hinterfragen der Rollen, die uns prägen und begrenzen.
+                Nina Bussjäger ist eine zeitgenössische Künstlerin aus Speyer, deren Werk die Spannung zwischen klassischer Maltechnik und modernem konzeptionellem Denken erforscht. Ihre Gemälde untersuchen Gesellschaft, soziale Strukturen und Identitäten mit gestischer Kraft und psychologischer Tiefe.
               </p>
               <p className="font-sans text-lg md:text-xl leading-relaxed">
-                Mit gestischer Kraft und psychologischer Tiefe schafft Bussjäger Arbeiten, die nicht nur sehen, sondern fühlen lassen. Sie malt nicht, um zu dekorieren, sondern um zu durchdringen: gesellschaftliche Normen zu hinterfragen, verborgene Wahrheiten sichtbar zu machen und dem Betrachter einen Spiegel vorzuhalten. Ihre Farben sind nicht harmonisch—sie sind ehrlich, manchmal schmerzhaft, immer authentisch.
-              </p>
-              <p className="font-sans text-lg md:text-xl leading-relaxed">
-                Die Werke von Nina Bussjäger wurden vielfach national und international ausgestellt. Es ist Kunst, die unbequem sein darf, die bleiben soll.
+                Sie malt, um zu durchdringen: Normen zu hinterfragen, verborgene Wahrheiten sichtbar zu machen und den Betrachter mit sich selbst zu konfrontieren. Ihre Arbeiten sind ehrlich, manchmal schmerzhaft, immer authentisch—Kunst, die unbequem sein darf.
               </p>
             </div>
           </div>
