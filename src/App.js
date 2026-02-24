@@ -528,32 +528,35 @@ export default function NinaBussjaegerPortfolio() {
       {/* Hero Section */}
       <section 
         id="home" 
-        className="relative min-h-screen flex items-center justify-center px-6 md:px-12 pt-32 pb-20 overflow-hidden"
-        style={{
-          backgroundImage: randomHeroImage ? `url(${randomHeroImage})` : 'none',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
+        className="relative min-h-screen flex items-center justify-center px-6 md:px-12 pt-32 pb-20 overflow-hidden bg-navy"
       >
-        {/* White Overlay - 70% opacity */}
-        <div className="absolute inset-0 bg-white opacity-30 z-0" />
+        {/* Background Image */}
+        {randomHeroImage && (
+          <img 
+            src={randomHeroImage}
+            alt="Hero Background"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+        )}
+        
+        {/* Navy Gradient Overlay - 60% opacity */}
+        <div className="absolute inset-0 bg-navy opacity-60 z-1" />
         
         <div className="relative z-10 text-center max-w-6xl">
-          <h1 className="hero-title font-display font-black text-navy slide-in mb-8" style={{ transform: 'translateY(60px)' }}>
+          <h1 className="hero-title font-display font-black text-cream slide-in mb-8" style={{ transform: 'translateY(60px)' }}>
             Bold.<br/>Expressive.<br/>Unapologetic.
           </h1>
-          <p className="text-xl md:text-2xl font-sans font-light text-navy max-w-2xl mx-auto slide-in" 
+          <p className="text-xl md:text-2xl font-sans font-light text-cream max-w-2xl mx-auto slide-in" 
              style={{ 
                transform: 'translateY(60px)', 
                animationDelay: '0.2s',
-               textShadow: '0 2px 8px rgba(255, 255, 255, 0.8)'
+               textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)'
              }}>
             Contemporary paintings that challenge perception and celebrate raw emotion
           </p>
           <button
             onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-            className="mt-12 px-8 py-4 bg-navy text-cream font-sans font-semibold text-lg hover:bg-magenta transition-all duration-300 flex items-center gap-3 mx-auto slide-in"
+            className="mt-12 px-8 py-4 bg-magenta text-cream font-sans font-semibold text-lg hover:bg-saffron hover:text-navy transition-all duration-300 flex items-center gap-3 mx-auto slide-in"
             style={{ transform: 'translateY(60px)', animationDelay: '0.4s' }}
           >
             Explore Work
