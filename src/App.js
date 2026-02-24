@@ -14,7 +14,7 @@ export default function NinaBussjaegerPortfolio() {
   const artworks = useMemo(() => [
     { 
       id: 1, 
-      title: 'Eschbach', 
+      title: 'Feuerbach', 
       year: 2024, 
       price: '3,800 €', 
       sold: false,
@@ -22,23 +22,23 @@ export default function NinaBussjaegerPortfolio() {
     },
     { 
       id: 2, 
-      title: 'Fragments of Memory', 
-      year: 2024, 
-      price: '2,800 €', 
-      sold: false,
+      title: 'Et tu', 
+      year: 2025, 
+      price: 'Sold', 
+      sold: true,
       image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_4_vzqhgu.jpg'
     },
     { 
       id: 3, 
-      title: 'Urban Pulse', 
-      year: 2023, 
-      price: 'Sold', 
-      sold: true,
+      title: 'Urbane Nymphen', 
+      year: 2018, 
+      price: '3,200', 
+      sold: false,
       image: 'https://res.cloudinary.com/dsktnxayr/image/upload/v1771581088/nina_art_3_uveqo0.jpg'
     },
     { 
       id: 4, 
-      title: 'Ethereal Depths', 
+      title: 'Kamaloka 3h', 
       year: 2024, 
       price: '3,200 €', 
       sold: false,
